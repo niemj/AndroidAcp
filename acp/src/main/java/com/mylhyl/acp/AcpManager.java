@@ -138,7 +138,7 @@ class AcpManager {
      */
     private synchronized void showRationalDialog(final String[] permissions) {
         new AlertDialog.Builder(mActivity)
-                .setMessage(mOptions.getRationalMessage())
+                .setMessage(String.format(mOptions.getRationalMessage(),Permission.transformText(mContext,permissions)))
                 .setPositiveButton(mOptions.getRationalBtnText(), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -191,7 +191,7 @@ class AcpManager {
      */
     private synchronized void showDeniedDialog(final List<String> permissions) {
         new AlertDialog.Builder(mActivity)
-                .setMessage(mOptions.getDeniedMessage())
+                .setMessage(String.format(mOptions.getDeniedMessage(),Permission.transformText(mContext,permissions)))
                 .setCancelable(false)
                 .setNegativeButton(mOptions.getDeniedCloseBtn(), new DialogInterface.OnClickListener() {
                     @Override

@@ -1,5 +1,9 @@
 package com.mylhyl.acp;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Created by hupei on 2016/4/26.
  */
@@ -45,8 +49,8 @@ public final class AcpOptions {
     }
 
     public static class Builder {
-        private static final String DEF_RATIONAL_MESSAGE = "此功能需要您授权，否则将不能正常使用";
-        private static final String DEF_DENIED_MESSAGE = "您拒绝权限申请，此功能将不能正常使用，您可以去设置页面重新授权";
+        private static final String DEF_RATIONAL_MESSAGE = "以下功能需要您授权，否则将不能正常使用：\n\n%s";
+        private static final String DEF_DENIED_MESSAGE = "您拒绝了权限申请，以下功能将不能正常使用，您可以去设置页面重新进行授权：\n\n%s";
         private static final String DEF_DENIED_CLOSE_BTN_TEXT = "关闭";
         private static final String DEF_DENIED_SETTINGS_BTN_TEXT = "设置权限";
         private static final String DEF_RATIONAL_BTN_TEXT = "我知道了";
@@ -120,6 +124,21 @@ public final class AcpOptions {
          */
         public Builder setPermissions(String... mPermissions) {
             this.mPermissions = mPermissions;
+            return this;
+        }
+
+        /**
+         * 需要申请的权限组
+         *
+         * @param mPermissions {@linkplain android.Manifest.permission android.Manifest.permission}
+         * @return
+         */
+        public Builder setPermissions(String[]... mPermissions) {
+            List<String> permissionList = new ArrayList<>();
+            for (String[] group : mPermissions) {
+                permissionList.addAll(Arrays.asList(group));
+            }
+            this.mPermissions = permissionList.toArray(new String[permissionList.size()]);
             return this;
         }
 
